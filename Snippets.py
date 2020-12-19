@@ -59,9 +59,12 @@ x = Student("Mike", "Olsen", 2019)
 x.printname()
 x.welcome()
 
-
-
-
+# %% Use assert to sanitise inputs
+class TopStudent(Student):
+    def __init_(self, fname, lname, mark):
+        Person.__init__(self, fname, lname)
+        assert mark >= 85
+        self.mark = mark
 
 # %%
 # generator functions return iterable results
