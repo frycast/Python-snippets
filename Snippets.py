@@ -1,3 +1,5 @@
+# Useful resource https://www.w3schools.com/python/python_dictionaries.asp
+
 # %% attributes can be added to classes on the fly
 class MyClass:
     x = 5
