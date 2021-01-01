@@ -1,4 +1,9 @@
-# Useful resource https://www.w3schools.com/python/python_dictionaries.asp
+""" 
+Useful resources:
+* https://www.w3schools.com/python/python_dictionaries.asp
+* https://github.com/aloctavodia/BAP
+* https://learnbayesstats.com
+"""
 
 # %% attributes can be added to classes on the fly
 class MyClass:
@@ -97,4 +102,39 @@ a = tf.constant([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
 b = tf.constant([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
 c = tf.matmul(a, b)
 print(c)
+
+
+# %% A matplotlib of normal distributions
+# Notice: 
+# * the scipy stats pdf
+# * the indexable subplots
+# * the empty vector trick to remove legend line
+# * the labelpad param for spacing p(x)
+# * arviz just sets the dark grid style
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy import stats
+import arviz as az
+az.style.use('arviz-darkgrid')
+mu = [-1,0,1]
+sd = [0.5, 1, 1.5]
+x = np.linspace(-7,7,200)
+_, ax = plt.subplots(len(mu), len(sd), 
+                     sharex = True, sharey = True,
+                     figsize = (9,7), 
+                     constrained_layout = True)
+for i in range(len(mu)):
+    for j in range(len(sd)):
+        mu_i = mu[i]
+        sd_j = sd[j]
+        y = stats.norm(mu_i,sd_j).pdf(x)
+        lab = "μ = {:3.2f}\nσ = {:3.2f}"
+        lab = lab.format(mu_i, sd_j)
+        ax[i,j].plot(x,y)
+        ax[i,j].plot([], label=lab, alpha=0)
+        ax[i,j].legend(loc=1)
+ax[2,1].set_xlabel('x')
+ax[1,0].set_ylabel('p(x)', rotation=0, labelpad=20)
+ax[1,0].set_yticks([])
+
 # %%
