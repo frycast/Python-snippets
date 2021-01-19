@@ -103,7 +103,6 @@ b = tf.constant([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
 c = tf.matmul(a, b)
 print(c)
 
-
 # %% A matplotlib of normal distributions
 # Notice: 
 # * the scipy stats pdf
@@ -137,4 +136,12 @@ ax[2,1].set_xlabel('x')
 ax[1,0].set_ylabel('p(x)', rotation=0, labelpad=20)
 ax[1,0].set_yticks([])
 
-# %%
+# %% Strings are immutable in Python
+a = "ahah"
+a = a+"b"
+# a[1] = 'c' error (not mutable)
+
+# %% f strings
+name = "Danny"
+a = f"Hello {name}"
+print(a)
