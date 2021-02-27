@@ -5,6 +5,22 @@ Useful resources:
 * https://learnbayesstats.com
 """
 
+# %% Using pickle to read and write binary
+import pickle
+import numpy as np
+
+obj = np.repeat('doony',500)
+
+filename = "myobj.doony"
+write_file = open(filename, 'wb')
+pickle.dump(obj, write_file)
+write_file.close()
+
+read_file = open(filename, 'rb')
+obj2 = pickle.load(read_file)
+read_file.close()
+
+
 # %% attributes can be added to classes on the fly
 class MyClass:
     x = 5
