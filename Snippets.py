@@ -8,6 +8,66 @@ Useful resources:
 # conda activate snips
 """
 
+# %% Update a hard-coded variable in the script being run
+from datetime import date
+import re
+file = open("Snippets.py")
+lines = file.readlines()
+file.close()
+
+# lineno = inspect.getframeinfo(inspect.currentframe()).lineno # will not work in interactive but can replace regex
+regex = r'checkdate = \'.+\''
+r = re.compile(regex)
+lineno = -1
+for i in range(len(lines)):
+    found = bool(r.search(lines[i]))
+    if found:
+        lineno = i; break
+
+checkdate = '15-03-2021'
+today = date.today().strftime("%d-%m-%Y") # today's date
+if checkdate != today: # check if prev date equals today's date
+    dateline = lines[lineno].split(sep = '\'')
+    # Do stuff
+    dateline[1] = ''.join(['\'',today,'\''])
+    lines[lineno] = ''.join(dateline)
+    file2 = open("Snippets.py", 'w')
+    file2.writelines(lines)
+    file2.close()
+    print("Date updated on line: ", lineno)
+
+# %% advanced comprehensions with both index and value: example using regex
+import re
+regex = r'file\..+'
+file = open("Snippets.py")
+lines = file.readlines()
+file.close()
+result = [i for i, item in enumerate(lines) if re.search(regex, item)]
+result
+
+
+# %% zip takes iterators and returns an iterator over tuples
+keys = ['a','b','c']
+vals = [1,2,3]
+zipped = zip(keys,vals)
+#list(zipped)
+print(dict(zipped))
+print(tuple(zip((1,2,3),('a','b','c','d'),('x','y'))))
+
+
+# %% Type hints
+def addTwo(x : int) -> int:    return x + 2
+
+# %% use __repr__ to define a string representation of a class
+class shoe:
+    def __init__(self, size) -> None:
+        self.size = size
+    def __repr__(self) -> str:
+        return "this is a shoe of size " + str(self.size)
+
+myshoe = shoe(12)
+print(myshoe)
+
 # %% Multithreading with priority queue using threading module
 import queue
 import threading
